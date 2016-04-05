@@ -1,7 +1,0 @@
-#include <vector>
-
-using namespace std;
-
-int d(int n){
-  
-}
