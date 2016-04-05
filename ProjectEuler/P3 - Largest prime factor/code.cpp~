@@ -1,0 +1,9 @@
+#include <iostream>
+
+using namspace std;
+
+int main(){
+  long long n = 600851475143;
+  cout << n << endl;
+  return 0;
+}

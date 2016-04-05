@@ -1,0 +1,18 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<char> vc;
+typedef vector<vc> vvc;
+
+vvc board;
+
+void init(int n, int m){
+  board = vvc(n, vc(m));
+}
+
+int main(){
+  int n, m;
+  scanf("%d %d", &n, &m);
+}

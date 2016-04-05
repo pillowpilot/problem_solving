@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vi aa;
+vi pp;
+
+int main(){
+  int n;
+
+  aa = vi();
+  pp = vi();
+
+  cin >> n;
+  while( n-- > 0 ){
+    int a, p;
+    cin >> a >> p;
+    aa.push_back(a);
+    pp.push_back(p);
+  }
+  
+  return 0;
+}

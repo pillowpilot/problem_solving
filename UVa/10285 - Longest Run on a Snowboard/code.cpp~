@@ -1,0 +1,15 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main(){
+  int cases, n, m;
+  string name;
+  
+  scanf("%d[\n]", &cases);
+  while( cases-- > 0 ){
+    
+  }
+}

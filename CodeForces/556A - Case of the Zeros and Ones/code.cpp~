@@ -1,0 +1,14 @@
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  int n, zeros = 0, ones = 0;
+
+  scanf("%d ", &n);
+  while( n-- > 0 ){
+    
+  }
+
+
+}

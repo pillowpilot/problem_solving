@@ -1,0 +1,13 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main(){
+  int step, mod;
+
+  while( scanf("%d %d", &step, &mod) == 2 ){
+    
+  }
+  return 0;
+}

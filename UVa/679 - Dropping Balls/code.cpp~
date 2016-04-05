@@ -1,0 +1,11 @@
+#include <cstdio>
+#include <map>
+
+typedef map<pair<int, int>, int> mpiii;
+
+mpiii memo;
+
+int main(){
+  
+  return 0;
+}

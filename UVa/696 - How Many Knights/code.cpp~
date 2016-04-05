@@ -1,0 +1,28 @@
+#include <cstdio>
+#include <cmath>
+
+int f(int x){
+  return (int) ceil( ((double)x)/2 );
+}
+int g(int x){
+  return (int) floor( ((double)x)/2 );
+}
+
+int main(){
+  int row, col;
+
+  while( scanf("%d %d", &row, &col) == 2 && row != 0 && col != 0 ){
+    bool swaped = false;
+    int r;
+    if( col < row ){
+      swap( row, col ); // Now, row <= col
+      swaped = true;
+    }
+    if( row == 1 ) r = col;
+    else if( row == 2 && col <= 3 ) r = 4;
+    else r = f(row)*f(col) + g(row)*g(col);
+    if( swaped == true ) swap( row, col );
+    printf("%d knights may be placed on a %d row %d column board.\n", r, row, col);
+  }
+  return 0;
+}

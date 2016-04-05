@@ -1,0 +1,25 @@
+#include <stdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+
+vvi g;
+
+int main(){
+  int n, m;
+  scanf("%d%d", &n, &m);
+  g = vvi(n, vi());
+  while( n-- > 0 ){
+    int a, b;
+    scanf("%d%d%", &a, &b);
+    a--; b--;
+    if( a > b ) swap(a, b);
+    g[a].push_back(b);
+  }
+  
+  return 0;
+}
+  

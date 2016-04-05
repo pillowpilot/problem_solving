@@ -1,0 +1,19 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+int main(){
+  int css;
+
+  scanf("%d", &css);
+  while( css-- > 0 ){
+    int points;
+    scanf("%d", &points);
+
+    while( points-- > 0 ){
+      
+    }
+  }
+  return 0;
+}

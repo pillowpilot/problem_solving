@@ -1,0 +1,15 @@
+#include <cstdio>
+#include <vector>
+
+typedef vector<int> vi;
+
+vi dp;
+
+int main(){
+  int n, a, b, c;
+  scanf("%d %d %d %d", &n, &a, &b, &c);
+  dp = vi(n);
+
+  
+  return 0;
+}

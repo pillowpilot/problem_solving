@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+double log(double arg, double base){
+  return log(arg) / log(base);
+}
+
+long countOnes(long i){
+  long countOnes = 0;
+  long digits = long(log(i, 2)) + 1; //Verificar recorrido
+  vector<long> sums(digits + 1, 0);
+  
+  if(i == 0){
+    return 0;
+  }else{
+    for(long exp = 1; exp <= digits; exp++){
+      long sum = 0;
+      long longSeg = pow(2, exp);
+      long segAmount = i / longSeg;
+      long segFaltante = i % longSeg + 1;
+      if(segFaltante > longSeg / 2){
+	sum += segFaltante - longSeg / 2;
+      }
+      sum += (longSeg / 2) * segAmount;
+      sums[exp-1] = sum;
+    }
+  }
+
+  vector<long>::iterator iter = sums.begin();
+  for(;iter != sums.end(); iter++){
+    countOnes += *iter;
+  }
+  return countOnes;
+}
+
+long countOnesRange(long a, long b){
+  return countOnes(b) - countOnes(a - 1);
+}
+
+int main(){
+  long a, b;
+  while(scanf(" %ld %ld \n", &a, &b) == 2){
+    printf("%ld\n", countOnesRange(a, b));
+  }
+
+  return 0;
+}

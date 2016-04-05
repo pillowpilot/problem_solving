@@ -1,0 +1,11 @@
+import java.math.BigInteger;
+
+public class P16{
+    public static void main(String[] args){
+	int exp = 15;
+	BigInteger power = new BigInteger("1");
+	while( exp > 0 ){
+	    power = power.add( power );
+	}
+    }
+}

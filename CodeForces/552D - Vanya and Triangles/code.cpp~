@@ -1,0 +1,15 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+struct {
+  int x, y;
+} Point;
+
+typedef vector<Point> vp;
+
+int main(){
+  
+  return 0;
+}

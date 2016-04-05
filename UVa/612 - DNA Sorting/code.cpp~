@@ -1,0 +1,19 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Data{
+  string s;
+  int sortiness;
+  Data(string s, int sortiness):s(s), sortiness(sortiness){}
+  
+};
+
+typedef vector<Data> vd;
+
+int main(){
+  
+  return 0;
+}

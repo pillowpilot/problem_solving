@@ -1,0 +1,20 @@
+#include <iostream>
+
+using namespace std;
+
+const int M = 1e9 + 7;
+
+int main(){
+  ios_base::sync_with_stdio(false);
+  map<int, int> cc;
+  int m, n = 1;
+  cin >> m;
+  while(m-->0){
+    int p;
+    cin >> p;
+    cc[p]++;
+
+    n = (n * p)%M;
+  }
+  return 0;
+}

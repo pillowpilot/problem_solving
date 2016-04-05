@@ -1,0 +1,56 @@
+#include <cstdio>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+typedef unsigned int uint;
+typedef vector<uint> vu;
+typedef vector<vu> vvu;
+
+vvu mi(5, vu(5));
+vu sols;
+
+void initGrapth(){
+  mi[0] = {0, 1, 1, 0, 1};
+  mi[1] = {1, 0, 1, 0, 1};
+  mi[2] = {1, 1, 0, 1, 1};
+  mi[3] = {0, 0, 1, 0, 1};
+  mi[4] = {1, 1, 1, 1, 0};
+}
+
+void dfs(){
+  vector<bool> visited(5);
+  list<uint> s;
+  
+  visited[0] = true;
+  s.push_front( 0 );
+  while( !s.empty() ){
+    uint v = s.front(); s.pop_front();
+    
+    vu::const_iterator n = mi[v].begin();
+    while( n != mi[v].end() ){
+      if( mi[v][*n] == 1 && visited[*n] == false ){
+	visited[*n] = true;
+	s.push_front(*n);
+      }
+      n++;
+    }
+  }
+}
+
+int main(){
+  sols.reserve(40);
+  initGrapth();
+  
+  for(int i = 0; i < mi.size(); i++){
+    for(int j = 0; j < mi[i].size(); j++){
+      printf("%2u", mi[i][j]);
+    }
+    printf("\n");
+  }
+
+  dfs(0, "");
+  
+  return 0;
+}

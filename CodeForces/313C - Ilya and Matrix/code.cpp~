@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+typedef unsigned long long ull;
+typedef vector<int> vi;
+
+vi d;
+
+double log4(double x){
+  return log(x) / log(4);
+}
+
+int main(){
+  int n;
+  
+  cin >> n;
+  d = vi();
+  while( n-- > 0 ){
+    int a;
+    cin >> a;
+    d.push_back(a);
+  }
+  n = d.size();
+  sort(d.begin(), d.end());
+
+  ull sum = d.back() * n;
+
+  int a = 1;
+  while( a <= n ){
+    for(int i = a
+  }
+  
+  return 0;
+}

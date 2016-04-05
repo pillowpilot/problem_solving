@@ -1,0 +1,35 @@
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+
+using namespace std;
+
+char input[555];
+
+void process(){
+  int i = 0, row = 0, col = 0;
+  while( input[i] != '\0' ){
+    char c = input[i];
+    if( c == '/' ){
+      row++;
+      col = 0;
+    }else if( isdigit(c) ){
+      col += c - '0';
+    }else{
+      if( 'A' <= c && c <= 'Z' ) c -= 'a' - 'A';
+      switch(c){ //pnbrqk
+      case 'p':
+	break;
+      case 'n':
+      }
+    }
+    i++;
+  }
+}
+
+int main(){
+  while( scanf("%[^\n]\n", input) == 1 ){
+    
+  }
+  return 0;
+}

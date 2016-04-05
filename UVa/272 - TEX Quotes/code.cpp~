@@ -1,0 +1,19 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main(){
+  bool openQuote = false;
+  string line;
+  while(getline(cin, line)){
+    string::iterator iter = line.begin();
+    while(iter != line.end()){
+      if(*iter == '"'){
+	if(openQuote){
+	}else{
+	}
+      }
+  }
+  return 0;
+}

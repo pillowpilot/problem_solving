@@ -1,0 +1,14 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+char s[10101];
+
+int main(){
+  scanf("%[^\n]\n", s);
+  
+  return 0;
+}

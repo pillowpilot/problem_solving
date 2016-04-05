@@ -1,0 +1,38 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vi apps;
+vi loc;
+
+int main(){
+  int n, m, k;
+  
+  scanf("%d %d %d", &n, &m, &k);
+  apps = vi(n+10, 0);
+  loc  = vi(n+10, 0);
+
+  for(int i = 0; i < n; i++){
+    int a;
+    scanf("%d", &a);
+    apps[i] = a;
+    loc[a]  = i;
+  }
+  int sum = 0;
+  for(int i = 0; i < m; i++){
+    int a;
+    scanf("%d", &a);
+    sum += loc[a] % k;
+    if( a != 1 ){
+      int x = loc[a], y = loc[a-1];
+      swap( apps[a-1], apps[a] );
+      loc[a-1] = x;
+      loc[a]   = y;
+    }
+  }
+  
+  return 0;
+}

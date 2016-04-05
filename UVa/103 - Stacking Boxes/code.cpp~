@@ -1,0 +1,14 @@
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+  int k, n;
+
+  while( scanf("%d %d ", &k, &n) == 2 ){
+    
+  }
+  return 0;
+}

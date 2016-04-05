@@ -1,0 +1,25 @@
+#include <iostream>
+#include <limits>
+
+using namespace std;
+
+int main(){
+  int a, b, c, d, x, y, alpha, beta;
+  alpha = beta = numeric_limits<int>::max();
+
+  cin >> a >> b >> c >> d >> x >> y;
+
+  alpha = min( alpha, a + c );
+  beta = min( beta, max( b, d ) );
+  
+  alpha = min( alpha, a + d );
+  beta = min( beta, max( b, c ) );
+  
+  alpha = min( alpha, b + c );
+  beta = min( beta, max( a, d ) );
+  
+  alpha = min( alpha, b + d );
+  beta = min( beta, max( a, c ) );
+  
+  return 0;
+}

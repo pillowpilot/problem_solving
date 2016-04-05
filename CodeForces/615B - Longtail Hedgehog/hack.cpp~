@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long LL;
+typedef double dbl;
+
+#define all(x) (x).begin(), (x).end()
+#ifdef _DEBUG
+# define LOG(x...) fprintf(stderr, x)
+#else
+# define LOG(x...) 0
+#endif
+
+const int INF = 1000000000;
+const LL MOD = 1000000007;
+const dbl EPS = 1e-7;
+
+inline LL binpow(LL a, LL p) {
+  if (!p)
+    return 1;
+  if (p == 1)
+    return a;
+  if (p & 1)
+    return (a * binpow(a * a % MOD, p >> 1)) % MOD;
+  return binpow(a * a % MOD, p >> 1);
+}
+
+int main() {
+  cout << 100000 << ' ' << 199996 << endl;
+  for (int i = 1; i <= 99999; ++i)
+    cout << i << ' ' << i + 1 << endl;
+
+  for (int i = 1; i <= 99997; ++i)
+    cout << i << ' ' << 100000 << endl;
+
+     
+  return 0;
+}

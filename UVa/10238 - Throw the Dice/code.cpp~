@@ -1,0 +1,65 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef unsigned long long ull;
+typedef vector<ull> vi;
+typedef vector<vi> vvi;
+
+vvi memo;
+
+ull pow(int b, int e){
+  if( e == 0 ) return 1;
+  else{
+    if( e % 2 == 0 ){
+      ull s = pow( b, e / 2 );
+      s = s * s;
+      return s;
+    }else{
+      ull s = pow( b, ( e - 1 ) / 2 );
+      s = s * s * b;
+      return s;
+    }
+  }
+}
+
+ull deco(int n, int k){
+  if( k == 1 || n == k ) return 1;
+  else{
+    if( memo[n][k] == 0 ){
+      memo[n][k] = deco(n - 1, k) + deco(n - 1, k - 1);
+    }
+    return memo[n][k];
+  }
+}
+
+void printMemo(){
+  for( int i = 1; i < memo.size(); i++ ){
+    for( int j = 1; j <= i; j++ ){
+      printf("%10llu", memo[i][j]);
+    }
+    printf("\n");
+  }
+}
+
+void init(){
+  memo = vvi( 55, vi( 55, 0 ) );
+  for( int i = 1; i < memo.size(); i++ ){
+    for( int j = 1; j <= i; j++ ){
+      deco(i, j);
+    }
+  }  
+}
+
+int main(){
+  int f, n, s;
+
+  init();
+  while( scanf("%d %d %d", &f, &n, &s) == 3 ){
+    int pCases = deco(f, n);
+    ull tCases = pow(f, n);
+    printf("%d/%llu\n", pCases, tCases);
+  }
+  return 0;
+}

@@ -1,0 +1,22 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vi seq;
+
+
+
+int main(){
+  int n;
+
+  seq = vi();
+  while( n-- > 0 ){
+    int a;
+    scanf("%d", &a);
+    seq.push_back(a);
+  }
+  return 0;
+}

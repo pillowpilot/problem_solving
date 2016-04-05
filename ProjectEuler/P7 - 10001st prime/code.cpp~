@@ -1,0 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+shared_ptr< vector<bool> > eratostenes(int n){
+  vector<bool> sieve = new vector<bool>(n, false);
+  sieve[0] = sieve[1] = 
+}

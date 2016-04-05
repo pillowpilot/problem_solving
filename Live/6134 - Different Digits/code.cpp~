@@ -1,0 +1,34 @@
+#include <cstdio>
+#include <vector>
+#include <bitset>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vi pp;
+
+void preprocess(){
+  pp = vi(5050);
+
+  for( int i = 0; i < pp.size(); i++ ){
+    int j = i;
+    bitset<10> bs;
+    bs.reset();
+
+    while( j > 0 ){
+      bs.set(j%10);
+      j /= 10;
+    }
+  }
+}
+
+int main(){
+  int n, m;
+
+  preprocess();
+  while( scanf("%d %d", &n, &m) == 2 ){
+    
+  }
+  return 0;
+}

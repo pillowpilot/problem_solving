@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+typedef vector<char> vc;
+
+int f(const vi& v){
+  
+}
+
+int main(){
+  string s;
+  
+  while( cin >> s ){
+    vi c = vi(10, 0);
+    vc r = vc();
+    int i = 0;
+    while( i < s.size() && c[s[i]-'0'] < 2 ){
+      r.push_back( s[i] );
+      c[i]++;
+      i++;
+    }
+    if( i != s.size() ){
+      
+    }
+  }
+  
+  return 0;
+}

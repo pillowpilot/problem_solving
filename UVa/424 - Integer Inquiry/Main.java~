@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.Scanner;
+import java.math.BigInteger;
+
+class Main{
+    public static void main(String args[]){
+	Scanner scanner = new Scanner( System.in );
+	BigInteger acc = new BigInteger("0");
+	String s;
+
+	s = scanner.nextLine();
+	while( s != "0" ){
+	    BigInteger incre = new BigInteger(s);
+	    acc.add( incre );
+	    s = scanner.nextLine();
+	}
+
+	System.out.println( acc );
+	
+    }
+}

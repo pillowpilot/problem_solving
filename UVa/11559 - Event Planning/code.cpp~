@@ -1,0 +1,17 @@
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  int n, b, h, w, min = numeric_limits::max<int>();
+
+  while( scanf("%d %d %d %d ", &n, &b, &h, &w) == 4 ){
+    while( h-- > 0 ){
+      int cost;
+      scanf("%d", &cost);
+      cost *= n;
+      
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <limits>
+#include <cmath>
+
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<bool> vb;
+
+vi primes;
+/*
+  Criba de Eratostenes.
+  Con la mejora del cuadrado.
+  O(n log log n)
+  Para n=1e6 se tiene ~0.24s
+ */
+void sieveOfEratosthenes(int n){
+  vb test = vb(n, true);
+  primes  = vi();
+  primes.reserve( 51e6 ); // (Según Wolfram) ~51e6 primos < 1e9 < 2^31 < 1e10
+
+  int i = 2;
+  while( i < test.size() ){
+    if( test[i] == true ){ // Primo encontrado!
+      primes.push_back( i );
+      if( i < sqrt( numeric_limits<int>::max() ) ){ // Overflow check!
+	int k = i * i;
+	while( k < test.size() ){
+	  test[k] = false;
+	  k += i;
+	}
+      }
+    }
+    i++;
+  }
+}
+
+
+int main(){
+  ll n;
+
+  sieveOfEratosthenes( sqrt(n) +  );
+  
+  
+  return 0;
+}

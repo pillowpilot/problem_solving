@@ -1,0 +1,27 @@
+#include <cstdio>
+#include <vector>
+#include <limits>
+
+#define INF numeric_limits<int>::max()
+
+using namespace std;
+
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+
+int n, m;
+vvi f, g;
+
+int main(){
+
+  while( scanf("%d %d ", &n, &m) == 2 ){
+    for( int i = 0; i < n; i++ ){
+      for( int j = 0; j < m; j++ ){
+	int a;
+	scanf("%d ", &a);
+	g[i][j] = a;
+      }
+    }
+  }
+  return 0;
+}

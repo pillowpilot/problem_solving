@@ -1,0 +1,14 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+
+vvi f, g;
+
+int main(){
+  
+  return 0;
+}

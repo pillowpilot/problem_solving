@@ -1,0 +1,31 @@
+#include <cstdio>
+#include <vector>
+
+using namespcace std;
+
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+
+int n, k;
+vvi dp;
+vi grades;
+vvi g;
+
+
+int main(){
+  scanf("%d %d", &n, &k);
+  dp = vvi( n, vi(k, 0) );
+  grades = vi(n, 0);
+  g = vvi( n, vi() );
+
+  while( n-- > 0 ){
+    int a, b;
+    scanf("%d %d", &a, &b);
+    g[a].push_back(b);
+    g[b].push_back(a);
+    grades[a]++;
+    grades[b]++;
+  }
+  
+  return 0;
+}

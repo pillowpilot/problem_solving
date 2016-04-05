@@ -1,0 +1,59 @@
+#include <cstdio>
+#include <string>
+
+using namespace std;
+
+typedef unsigned long long ull;
+
+string s;
+
+ull gcd(ull a, ull b){
+  if( a < b ){
+    ull t = a;
+    a = b;
+    b = t;
+  }
+  if( b == 0 ) return a;
+  else return gcd(b, a % b);
+}
+
+bool greaterThan(ull a, ull b, ull c, ull d){
+  return a*d > b*c; //Posible overflow!
+  //return a/b > c/d;
+}
+
+void search( ull a, ull b, ull x, ull y ){
+  printf("f(%llu, %llu)\n", x, y);
+  if( !(a == x && b == y) ){
+    if( greaterThan(a, b, x, y) ){
+      s += 'R';
+      ull m = 3*x, n = 2*y, gcdMN = gcd(m, n);
+      m /= gcd(m, n);
+      n /= gcd(m, n);
+      search( a, b, m, n);
+    }else{
+      s += 'L';
+      ull m = x, n = 2*y, gcdMN = gcd(m, n);
+      m /= gcd(m, n);
+      n /= gcd(m, n);
+      search( a, b, m, n);
+    }
+  }
+}
+
+void solve(ull a, ull b){
+  printf("\tg(%llu, %llu)\n", a, b);
+  s = "";
+  search(a, b, 1, 1);
+}
+
+int main(){
+  ull a, b;
+  scanf("%llu %llu", &a, &b);
+  while( !(a == 1 && b == 1) ){
+    solve( a, b );
+    printf("%s\n", s.data());
+    scanf("%llu %llu", &a, &b);
+  }
+  return 0;
+}

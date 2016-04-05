@@ -1,0 +1,14 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  string line;
+  int cases;
+  scanf("%d ", &cases);
+  while( cases-- > 0 ){
+    
+  }
+  return 0;
+}

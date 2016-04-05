@@ -1,0 +1,18 @@
+#include <iostream>
+#include <string>
+
+#define HTTP "http"
+#define FTP  "ftp"
+#define RU   "ru"
+
+using namespace std;
+
+int main(){
+  string s;
+
+  cin >> s;
+
+  
+  
+  return 0;
+}

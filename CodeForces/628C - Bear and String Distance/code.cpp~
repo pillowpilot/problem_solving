@@ -1,0 +1,13 @@
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  char s[100099], t[100099];
+
+  scanf("%s", s);
+
+  
+  
+  return 0;
+}

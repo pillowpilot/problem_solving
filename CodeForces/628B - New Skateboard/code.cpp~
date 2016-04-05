@@ -1,0 +1,11 @@
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  char s[300099];
+  unsigned  long long c = 0;
+  scanf("%s", s);
+  
+  return 0;
+}

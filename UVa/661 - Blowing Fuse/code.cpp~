@@ -1,0 +1,18 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+int fuseC;
+vi compC;
+
+int main(){
+  int n, m, c;
+  scanf("%d %d %d", &n, &m, &c);
+  while( !() ){
+    scanf("%d %d %d", &n, &m, &c);
+  }
+  return 0;
+}

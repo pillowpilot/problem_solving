@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+bool f(const string& s){
+  return s[0] == '1';
+}
+
+int main(){
+  string nb, p;
+  int n;
+  cin >> n;
+  while( n-- > 0 ){
+    string s;
+    cin >> s;
+    if( !f(s) ) prod(p, s);
+  }
+  return 0;
+}

@@ -1,0 +1,14 @@
+#include <cstdio>
+#include <vector>
+
+struct Node{
+  size_t left, right;
+  int value, freq;
+};
+
+typedef vector<Node> vn;
+
+int main(){
+  
+  return 0;
+}

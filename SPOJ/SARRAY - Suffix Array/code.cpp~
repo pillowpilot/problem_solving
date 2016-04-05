@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+struct Data{
+  int sa, msd, lsd;
+  Data(){ sa = msd = lsd = 0;}
+  Data(int sa, int msd, int lsd):sa(sa), msd(msd), lsd(lsd) {}
+  bool operator<(const Data& d) const{
+    if( msd != d.msd ){
+      return msd < d.msd;
+    }else{
+      if( lsd != d.lsd ){
+	return lsd < d.lsd;
+      }else{
+	return false; // If equals, then do not swap
+      }
+    }
+  }
+};
+typedef vector<Data> vd;
+
+int main(){
+  string s;
+
+  
+  
+}

@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <vector>
+
+using namespace std;
+
+typedef struct{
+  pair<double, double> a;
+  pair<double, double> b;
+  double coef;
+} segment;
+
+void readSegment(

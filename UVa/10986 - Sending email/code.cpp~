@@ -1,0 +1,50 @@
+#include <cstdio>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+typedef struct{
+  int v, w;
+} edata;
+typedef list<edata> le;
+typedef struct{
+  le adj;
+} vdata;
+typedef vector<vdata> vv;
+
+vv g;
+
+void initGraph(int v){
+  g.clear();
+  g.resize(v);
+}
+
+void addEdge(int u, int v, int w){
+  g[u].adj.push_back({v, w});
+  g[v].adj.push_back({u, w});
+}
+
+int shortestPath(int s, int t){
+  
+}
+
+int main(){
+  int cases, m, n, s, t, u, v, w, casesSoFar = 1, dist;
+  scanf("%d", &cases);
+  while( cases-- > 0 ){
+    scanf("%d %d %d %d", &m, &n, &s, &t);
+    initGraph(m);
+    while( n-- > 0 ){
+      scanf("%d %d %d", &u, &v, &w);
+      addEdge(u, v, w);
+    }
+    dist = shortestPath(s, t);
+    printf("Case #%d: ", casesSoFar++);
+    if( dist == numeric_limits<int>::max() ){
+      printf("unreachable");
+    }else{
+      printf("%d", dist);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vi memo;
+
+int len(int n){
+  
+}
+
+int main(){
+  int i, j, m = 1;
+  memo = vi(1e6);
+
+  scanf("%d%d", &i, &j);
+  printf("%d %d ", i, j);
+  if(i>j)swap(i, j);
+  for(int k = i; k <= j; k++) m = max(m, len(k));
+  printf("%d\n", m);
+  return 0;
+}

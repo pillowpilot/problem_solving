@@ -1,0 +1,12 @@
+#include <cstdio>
+
+using namespace std;
+
+int main(){
+  int len;
+  char n[51];
+  
+  scanf("%d %[^\n]\n", &len, n);
+
+  return 0;
+}
