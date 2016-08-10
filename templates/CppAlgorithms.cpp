@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,11 +46,43 @@ ull bc(ull n, ull k){
   return nf*kfi%m*nkfi%m; // (operator precedence) *=/=% (left-right)
 }
 
+/*
+  sieve of eratostenes
+  5761455 primes upto 1e8 in 2.9s
+  664579 primes upto 1e7 in 0.29s
+  78498 primes upto 1e6 in 0.029s
+
+  needs
+  typedef unsigned long long ull;
+ */
+
+int const MAXP = (int) 1e7; // 1e9 could produce MLE
+bool primes[MAXP+1]; // +1 to include MAXP
+
+void eratostenes(){
+  fill(primes, primes+MAXP+1, true);  // needs <algorithm>
+  
+  primes[0] = primes[1] = false;
+  ull index = 2; // ull for next line calculation
+  while( index*index <= MAXP ){
+    if( primes[index] == true ){
+      int n = index * index;
+      while( n <= MAXP ){
+	primes[n] = false;
+	n += index;
+      }
+    }
+    index++;
+  }
+}
+
 
 int main(){
   /*
     BEWARE!!
     untested algorithms... ^_^U
+
+    except eratostenes
    */
   return 0;
 }
