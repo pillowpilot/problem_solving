@@ -3,6 +3,7 @@
 
 using namespace std;
 
+typedef long long ll;
 typedef unsigned long long ull;
 
 /*
@@ -76,6 +77,46 @@ void eratostenes(){
   }
 }
 
+/*
+  Fibonacci in O(lg^2(n))
+  using identity
+  |1 1|n  |f_n+1 f_n  |
+  |1 0| = |f_n   f_n-1|
+  which implies
+  f(2n+1) = f(n+1)^2 + f(n)^2    (odd  n)
+  f(2n)   = f(n)*(f(n+1)+f(n-1)) (even n)
+  needs ull m=(ull)1e9+7;
+ */
+typedef map<ull, ull> muu;
+
+muu dp;
+
+ull f(ull n){
+  auto iter = dp.find(n);
+  if( iter != dp.end() )
+    return iter->second;
+  
+  if( n == 0 )    return 0;
+  if( n == 1 )    return 1;
+  if( n == 2 )    return 1;
+
+  ull ans;
+  if( n % 2 == 0 ){
+    ull k = n/2;
+    ans = ( f(k+1) + f(k-1) ) % m;
+    ans = ans * f(k);
+    ans = ans % m;
+  }else{
+    ull k = n/2;
+    ull t1 = f(k+1); t1 = (t1 * t1) % m;
+    ull t2 = f(k); t2 = (t2 * t2) % m;
+    ans = (t1 + t2) % m;
+  }
+
+  dp[n] = ans;
+  return ans;
+}
+
 
 int main(){
   /*
@@ -83,6 +124,10 @@ int main(){
     untested algorithms... ^_^U
 
     except eratostenes
+   */
+
+  /*
+    if a < 0, then a % M must be implemented as M - (a%M)
    */
   return 0;
 }
