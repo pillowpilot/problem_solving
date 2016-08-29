@@ -48,7 +48,7 @@ ull bc(ull n, ull k){
 }
 
 /*
-  sieve of eratostenes
+  sieve of eratosthenes
   5761455 primes upto 1e8 in 2.9s
   664579 primes upto 1e7 in 0.29s
   78498 primes upto 1e6 in 0.029s
@@ -60,7 +60,7 @@ ull bc(ull n, ull k){
 int const MAXP = (int) 1e7; // 1e9 could produce MLE
 bool primes[MAXP+1]; // +1 to include MAXP
 
-void eratostenes(){
+void eratosthenes(){
   fill(primes, primes+MAXP+1, true);  // needs <algorithm>
   
   primes[0] = primes[1] = false;
@@ -75,6 +75,59 @@ void eratostenes(){
     }
     index++;
   }
+}
+
+/*
+  generator of primes
+  generate the vector<unsigned long long> vprimes of primes
+  needs eratothenes over primes
+ */
+
+typedef vector<ull> vull;
+
+vull vprimes;
+void genprimes(){
+  eratosthenes();
+  vprimes.reserve((int)7e5);
+  for(int n = 2; n <= MAXP; n++){
+    if(primes[n] == true){
+      vprimes.push_back(n);
+    }
+  }
+}
+
+/*
+  segmented sieve of eratosthenes
+  
+  calculate the [lower, upper] segment of the sieve [2, problem_upper_bound].
+  needs genprimes (and genprimes needs eratosthenes over sqrt(problem_upper_bound))
+ */
+
+vector<bool> segprimes; // segprimes[index] = true iff index + lower is prime
+// for(int index = 0; index < upper - lower + 1; index++)
+
+void segmented_eratosthenes(int lower, int upper){
+  // needs genprimes over vprimes
+
+  segprimes = vector<bool>(upper - lower + 1, true);
+  
+  for(int i = 0; i < vprimes.size(); i++){
+    ull p = vprimes[i];
+    if( p*p > upper )
+      break;
+
+    int q = lower/p;
+    if( lower % p != 0 )q++; // q = ceil(lower/p)
+    if( q == 1 ) q++; // if p in range, then ignore
+    
+    while( p*q <= upper ){
+      segprimes[p*q - lower] = false;   
+      q++;
+    }
+  }
+
+  if( lower == 1 ) // 1 is recognized as prime
+    segprimes[0] = false;
 }
 
 /*
@@ -123,7 +176,7 @@ int main(){
     BEWARE!!
     untested algorithms... ^_^U
 
-    except eratostenes
+    except eratostenes, genprimes and segmented_eratosthenes
    */
 
   /*
