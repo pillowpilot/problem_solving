@@ -1,5 +1,9 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <set>
 
 using namespace std;
 
@@ -170,13 +174,99 @@ ull f(ull n){
   return ans;
 }
 
+/*
+  Suffix Array and LCP Array
+  O(n lg2 n + n)
+  Needs global vector<Data> v;
+ */
+struct Data{
+  int msd, lsd, sa, lcp;
+  Data(){ msd = lsd = sa = lcp = 0; }
+  Data(int msd, int lsd, int sa): msd(msd), lsd(lsd), sa(sa), lcp(0) {}
+};
+
+vector<Data> v;
+
+inline bool comparator(const Data& a, const Data& b){
+  return (a.msd < b.msd) || (a.msd == b.msd && a.lsd < b.lsd);
+}
+
+void salcp(const string& s){
+  // Suffix Array Construction
+  const int n = s.size();
+  int gap = 1;
+  vector<int> sainv(n);
+
+  v.clear();
+  for(int i = 0; i < n-1; i++){
+    v.push_back( Data(s[i] - 'a', s[i+1] - 'a', i) );
+  }
+  v.push_back( Data(s[n-1] - 'a', -1, n-1) );
+
+  sort( v.begin(), v.end(), comparator);
+
+  while( gap <= n ){
+    gap *= 2;
+
+    // SA Inverse
+    for(int i = 0; i < n; i++)
+      sainv[ v[i].sa ] = i;
+
+    // MSD
+    int value = 0;
+    for(int i = 0; i < n-1; i++){
+      if( comparator(v[i], v[i+1]) == false ){
+	v[i].msd = value;
+      }else{
+	v[i].msd = value;
+	value++;
+      }
+    }
+    v[ n-1 ].msd = value;
+
+    // LSD
+    for(int i = 0; i < n; i++){
+      int index = v[i].sa + gap;
+      if( sainv.size() <= index )
+	v[i].lsd = -1;
+      else
+	v[i].lsd = v[ sainv[index] ].msd;
+    }
+
+    sort( v.begin(), v.end(), comparator );
+  }
+
+  // LCP Array construction
+  for(int i = 0; i < sainv.size(); i++)
+    sainv[ v[i].sa ] = i;
+
+  int k = 0;
+  for(int i = 0; i < sainv.size(); i++){
+    if( sainv[i] != v.size() - 1 ){
+      int a = i;
+      int b = v[ sainv[i]+1 ].sa;
+
+      while( a + k < s.size() && b + k < s.size() && s[a+k] == s[b+k] )
+	k++;
+
+      v[sainv[i]].lcp = k;
+
+      k--;
+      if(k < 0)
+	k = 0;
+    }else{
+      k = 0;
+    }
+  }
+
+}
 
 int main(){
   /*
     BEWARE!!
     untested algorithms... ^_^U
 
-    except eratostenes, genprimes and segmented_eratosthenes
+    except eratostenes, genprimes, suffix+LCP Array and segmented_eratosthenes
    */
 
   /*
