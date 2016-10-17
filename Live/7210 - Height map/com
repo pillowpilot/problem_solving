@@ -1,0 +1,27 @@
+Idea del LA7210:
+Clasificamos las caras en 3. Los de arriba, la de abajo (0. siempre es una cara, por que los valores son simpre positivos) y los "laterales".
+
+1. Las caras de arriba se pueden contar con un flood fill sobre la matrix original.
+
+2. Intentemos contar las caras laterales con orientacion fija (por ejemplo, todas las caras hacia el "norte"). Avanzamos por pares de filas (perpendiculares a la orientación) y comprobamos si existe un "bloque" (una cara está compuesta de bloques) en cada posición. Por ejemplo para:
+
+0 0 0 _ Comprobamos para (0, 3), (0, 2), (0, 2). Existe bloque? SI, SI, SI. En la primera linea siempre.
+3 2 2 _ Comprobamos para (3, 1), (2, 3), (2, 2). Existe bloque? NO, SI, NO. 
+1 3 2
+
+Con el flujo de pares se puede comprobar si un par de bloques son parte de la misma cara. Despues es cuestion de contar las caras en el mismo flujo (caras coplanares). Por ejemplo:
+
+Podemos estar construyendo una cara o no. Iniciamos sin estar construyendo una cara.
+(0, 3), (0, 2), (0, 2). NUEVA CARA, CONTINUACION DE LA CARA ANTERIOR, CONTINUACION DE LA CARA ANTERIOR. Total=1.
+(3, 1), (2, 3), (2, 2). SIN BLOQUE, NUEVA CARA, SIN BLOQUE. Total=1.
+
+Rotamos 90 grados y repetimos 4 veces en total.
+
+*. La suma de todas las caras deberia de ser el total de caras. Ya que las 6 orientaciones fueron (supuestamente) comprobadas.
+
+Posiblemente el problema esté en la comprobación lateral...
+
+
+Nosotros, los universitarios Uriel Pereira con CI 4653217, Tadashi Akagi con CI 4084548 y Carlos Gaona con CI 3794073 cursando la carrera de Ingeniería en Informática con el apoyo del Prof. José Luis Vazquez, tenemos el agrado de comunicarle que nuestro equipo "You shall not compile!" ha sido aceptado para representar a la Facultad Politécnica en la competencia anual "International Collegiate Programming Contest" organizado por la "Association for Computing Machinery" a realizarse el día 12 de noviembre del corriente año en la Universidad de Buenos Aires, Argentina.
+
+Por ello solicitamos el apoyo económico detallado a continuación:
