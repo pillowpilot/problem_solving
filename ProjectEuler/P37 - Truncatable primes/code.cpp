@@ -1,61 +1,71 @@
 #include <iostream>
 #include <vector>
-#include <memory>
-#include <limits>
+#include <algorithm>
+#include <cmath>
 
 using namespace std;
 
-shared_ptr< vector<bool> > eratostenes(int n){
-  // vector[0] and vector[1] has no meaning!
-  shared_ptr< vector<bool> > sieve_ptr( new vector<bool>(n + 1, true) );
-  (*sieve_ptr)[0] = (*sieve_ptr)[1] = false;
-  
-  int index = 2;
-  while( index * index <= n ){
-    int upperIndex = index * index;
-    while( upperIndex <= n ){
-      (*sieve_ptr)[upperIndex] = false;
-      upperIndex += index;
+const int limit = (int) 1e7;
+vector<bool> isPrime(limit, true);
+vector<int> primes;
+
+inline void eratosthenes(){
+  isPrime[0] = isPrime[1] = false;
+  int prime = 2;
+  while( prime * prime < isPrime.size() ){
+    if( isPrime[prime] == true ){
+      primes.push_back( prime );
+      int index = prime * prime;
+      while( index < isPrime.size() ){
+	isPrime[index] = false;
+	index += prime;
+      }
     }
-    index++;
-    while( index*index <= n && (*sieve_ptr)[index] == false )
-      index++;
+    prime++;
   }
-  return sieve_ptr;
 }
 
-inline int invert(int n){
-  int m = 0;
-  do{
-    m *= 10;
-    m += n % 10;
-    n /= 10;
-  }while( n != 0 );
-  return m;
-}
 
-bool check(const vector<bool>& sieve, int n){
-  do{
-    n /= 10;
-  }while( n != 0 && sieve[n] == true );
-  return n == 0;
-}
+inline bool isTruncatable(int n){
+  string s = to_string(n);
+  while( s != "" ){
+    int a = stoi(s);
+    //cout << ">> " << a << endl;
+    if( !isPrime[a] ){
+      return false;
+    }
+    s = s.substr(0, s.size()-1);
+  }
+  
+  s = to_string(n);
+  while( s != "" ){
+    int b = stoi(s);
+    //cout << ">> " << b << endl;
+    if( !isPrime[b] )
+      return false;
+    s = s.substr(1, s.size()-1);
+  }
 
-inline bool doubleCheck(const vector<bool>& sieve, int n){
-  return check(sieve, n) && check(sieve, invert(n));
+  return true;
 }
 
 int main(){
-  const int limit = 10e6;
-  shared_ptr< vector<bool> > sieve = eratostenes(limit);
-
-  int sum = 0;
-  for(int i = 2; i < sieve->size(); i++)
-    if( (*sieve)[i] == true && doubleCheck(*sieve, i)){
-      cout << i << endl;
-      sum += i;
+  eratosthenes();
+  cout << "DEBUG: Sieve complete." << endl;
+  int ans = 0, c = 0;
+  for(int i = 10; i < limit; i++){
+    if( isTruncatable(i) ){
+      ans += i;
+      c++;
+      cout << ">> (" << c << ") " << i << endl;
     }
-  
-  cout << ">>> " << sum << endl;
+  }
+  cout << ans << endl;
   return 0;
 }
+
+// AC ans = 748317
+
+/*
+  Calculate better upper bound!!
+ */
