@@ -334,6 +334,82 @@ void salcp(const string& s){
 
 }
 
+/*
+  Fenwick Tree.
+  RSQ in O(lg n). 
+  Single element modification in O(lg n).
+
+  needs
+  long long ll
+  vector<ll> vll
+
+  use add method to init
+
+  Tested in UVa 12086, 12532
+
+  //* indicates operation-related lines (add)
+ */
+struct BIT{
+  vll ft; // 1-based
+  // Use add to init
+  BIT(int n): ft(n+1, 0) {} //*
+  inline int lob(int k){ return k&-k; }
+  void add(int k, ll v){
+    assert(1<=k);
+    while( k < ft.size() ){
+      ft[k] += v; //*
+      k += lob(k);
+    }
+  }
+  ll sum(int k){
+    ll s = 0;
+    while( k ){
+      s += ft[k]; //*
+      k -= lob(k);
+    }
+    return s;
+  }
+  ll sum(int a, int b){ // [a, b]
+    assert(1<=a && a<=b);
+    return sum(b)-sum(a-1); //*
+  }
+};
+
+/*
+  UnionFind 
+  O(lg n) w/o Path Compression
+
+  needs
+  vector<int> vi
+  rep(i, a, b)
+
+  Tested in UVa 793, 
+ */
+struct unionfind{
+  vi parent, size;
+  unionfind(int n){
+    rep(i, 0, n-1){
+      parent.push_back(i);
+      size.push_back(1);
+    }
+  }
+  int find(int v){
+    while( parent[v] != v ) v = parent[v];
+    return v;
+  }
+  void unite(int v, int u){
+    v = find(v);
+    u = find(u);
+    if( v == u ) return ;
+    if(size[v]>size[u]) swap(v, u);
+    size[u]+=size[v];
+    parent[v] = u;
+  }
+  bool test(int v, int u){
+    return find(v)==find(u);
+  }
+};
+
 int main(){
   /*
     BEWARE!!
