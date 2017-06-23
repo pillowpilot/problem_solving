@@ -1,38 +1,93 @@
-#include <cstdio>
 #include <vector>
+#include <iostream>
+
+#define debug(x) cerr << #x << " = " << x << endl;
+#define rep(i, a, b) for(__typeof(a)i=a; i<=b; i++)
+#define repi(i, a, b) for(__typeof(a)i=a; i>=b; i--)
 
 using namespace std;
 
-struct Node{
-  size_t left, right;
-  int value, freq;
-  Node():left(0), right(0), value(0), freq(0){}
-  Node(size_t l, size_t r, size_t v, size_t f): left(l), right(r), value(v), freq(f){}
+typedef pair<int, int> pii;
+typedef vector<pii> vpi;
+
+ostream& operator<<(ostream& os, const pii p){
+  return os << "(" << p.first << ", " << p.second << ")";
+}
+
+struct segmenttree{
+  int N;
+  vpi st;
+  segmenttree(int n){
+    N = 1;
+    while( N < n )
+      N <<= 1;
+
+    st.assign(2*N, {0, 0});
+    debug(N);
+  }
+  void buildTree(){
+    repi(i, N-1, 1){
+      pii lc = st[2*i];
+      pii rc = st[2*i+1];
+      if( lc.second == rc.second ){
+	st[i] = {lc.first+rc.first, lc.second};
+      }else if( lc.first > rc.first ){
+	st[i] = lc;
+      }else{
+	st[i] = rc;
+      }      
+    }
+  }
+  pii sum(int a, int b){
+    a += N; b += N;
+    pii sum = {0, 0};
+    while( a <= b ){
+      if(a%2==1){
+	if( sum.second == st[a].second ) sum.first += st[a].first;
+	else if( sum.first < st[a].first ) sum = st[a];
+	a--;
+      }
+      if(b%2==0){
+	if( sum.second == st[b].second ) sum.first += st[b].first;
+	else if( sum.first < st[b].first ) sum = st[b];
+	b--;
+      }      
+      a <<= 1; b <<= 1;
+    }
+    return sum;
+  }
+  void printTree(){
+    rep(i, 1, st.size()-1){
+      if( i - (i&-i) == 0 )
+	cout << endl;
+      cout << st[i] << " ";
+    }
+    cout << endl;
+  }
+  
 };
 
-typedef vector<Node> vn;
+int main(){
+  int n;
+  while( cin >> n && n != 0 ){
+    debug(n);
+    int q;
+    cin >> q;
 
-vn st;
+    segmenttree st(n);
+    rep(i, 0, n-1){
+      int a;
+      cin >> a;
+      st.st[st.N+i] = {1, a};
+    }
+    st.buildTree();
+    st.printTree();
 
-size_t queryST(
-
-void generateST(const vn& v, size_t l, size_t r, size_t baseAddr){
-  if( l == r ){
-    st[baseAddr] = Node(l, r, v[l], 1);
-  }else{
-    size_t midPoint = l + (r - l) / 2;
-    generateST(v, l, midPoint, 2 * baseAddr + 1);
-    generateST(v, midPoint + 1, r, 2 * baseAddr + 2);
-    Node nl = st[2 * baseAddr + 1], nr = st[2 * baseAddr + 2];
+    cout << st.sum(0, n) << endl;
+    cout << st.sum(1, n-1) << endl;
+    cout << st.sum(1, 1) << endl;
+    cout << st.sum(1, 3) << endl;
     
   }
-}
-
-void init(){
-  st = vector<Node>(1e5 * 17);
-}
-
-int main(){
-  
   return 0;
 }
