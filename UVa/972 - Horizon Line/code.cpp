@@ -1,0 +1,154 @@
+#include <bits/stdc++.h>
+#define debug(x) cerr << #x << " = " << x << endl;
+#define rep(i, a, b) for(int i=a; i<b;i++)
+#define all(x) (x).begin(), (x).end()
+
+using namespace std;
+
+const double EPS = 1e-10;
+
+struct PT{
+  double x, y;
+  PT(): x(0), y(0) {}
+  PT(double x, double y): x(x), y(y) {}
+  PT(const PT& o): x(o.x), y(o.y) {}
+  PT operator+(const PT& o) const{ return PT(x+o.x, y+o.y); }
+  PT operator*(double c) const{ return PT(x*c, y*c); }
+  PT operator-(const PT& o) const{ return *this+o*-1; }
+  PT operator/(double c) const{ return *this*(1/c); }
+  void read(){
+    cin >> x >> y;
+  }
+};
+
+bool cmpx(const PT& a, const PT& b){ return a.x<b.x || (fabs(a.x-b.x)<EPS && a.y<b.y); }
+bool cmpy(const PT& a, const PT& b){ return a.y<b.y || (fabs(a.y-b.y)<EPS && a.x<b.x); }
+
+ostream& operator<<(ostream& os, const PT& p){
+  return os << "(" << p.x << ", " << p.y << ")";
+}
+
+double dot(PT a, PT b){ return a.x*b.x+a.y*b.y; }
+double dist2(PT a, PT b){ return dot(a-b, a-b); }
+double cross(PT a, PT b){ return a.x*b.y-a.y*b.x; }
+bool linesParallel(PT a, PT b, PT c, PT d) {
+  return fabs(cross(b-a, c-d)) < EPS;
+}
+bool linesCollinear(PT a, PT b, PT c, PT d) {
+  return linesParallel(a, b, c, d) && fabs(cross(a-b, a-c)) < EPS && fabs(cross(c-d, c-a)) < EPS;
+}
+bool segmentsIntersect(PT a, PT b, PT c, PT d) {
+  if(linesCollinear(a, b, c, d)) {
+    if(dist2(a, c) < EPS || dist2(a, d) < EPS || dist2(b, c) < EPS || dist2(b, d) < EPS)
+      return true;
+    if(dot(c-a, c-b) > 0 && dot(d-a, d-b) > 0 && dot(c-b, d-b) > 0)
+      return false;
+    return true;
+  }
+  if(cross(d-a, b-a)*cross(c-a, b-a) > 0)
+    return false;
+  if(cross(a-c, d-c)*cross(b-c, d-c) > 0)
+    return false;
+  return true;
+}
+
+PT computeLineIntersection(PT a, PT b, PT c, PT d) {
+  b=b-a; d=c-d; c=c-a;
+  assert(dot(b, b) > EPS && dot(d, d) > EPS);
+  return a + b*cross(c, d)/cross(b, d);
+}
+
+typedef pair<PT, bool> event;
+bool cmp(const event& a, const event& b){
+  return a.first.x < b.first.x;
+}
+
+int main(){
+  ios_base::sync_with_stdio(false);
+  cin.tie(0); cout.tie(0);
+
+  int n;
+  while( cin >> n ){
+    vector<PT> f;
+    double acc = 0;
+    double y;
+    double l;
+    cin >> y;
+    f.push_back(PT(acc, y));
+    rep(i, 0, n-1){
+      cin >> l >> y;
+      acc += l;
+      f.push_back(PT(acc, y));
+    }
+    cin >> l;
+
+    rep(i, 0, f.size()){
+      //cout << f[i] << endl;
+    }
+    //cout << endl;
+
+    int m;
+    cin >> m;
+    vector<PT> g;
+    acc = 0;
+    cin >> y;
+    g.push_back(PT(acc, y));
+    rep(i, 0, m-1){
+      cin >> l >> y;
+      acc += l;
+      g.push_back(PT(acc, y));
+    }
+    cin >> l;
+
+    rep(i, 0, g.size()){
+      //cout << g[i] << endl;
+    }
+    //cout << endl;
+
+    vector<event> ee;
+    rep(i, 1, n) ee.push_back(make_pair(f[i], true));
+    rep(i, 1, m) ee.push_back(make_pair(g[i], false));
+    sort(all(ee), cmp);
+
+    double fval = f[0].y;
+    double gval = g[0].y;
+    double hval = max(fval, gval);
+    double ans = hval;
+    rep(i, 0, ee.size()){
+      event e = ee[i];
+      // Both functions change at the same x
+      if( i+1 < ee.size() && fabs(ee[i+1].first.x-e.first.x) < EPS ){
+	if( e.second ) fval = e.first.y;
+	else gval = e.first.y;
+	event en = ee[i+1];
+	if( en.second ) fval = en.first.y;
+	else gval = en.first.y;
+
+	hval = max(fval, gval);
+	ans = min(ans, hval);
+
+	i++;	
+      }else{ // Tipical case
+	if( e.second ) fval = e.first.y;
+	else gval = e.first.y;
+	hval = max(fval, gval);
+	ans = min(ans, hval);
+      }
+    }
+
+    cout << fixed << setprecision(3) << ans << endl;
+  }  
+  
+  return 0;
+}
+
+// AC
+/*
+  Annoying problem. Sweep line over x values.
+  Build functions f and g in a more confortable format.
+  Build events (x value, new y value, function to update).
+  Sort events.
+  Iterate events, notice that both functions can change values at the same x
+  That case can only happen in two adyacent events.
+  In that case, update both functions.
+ */
